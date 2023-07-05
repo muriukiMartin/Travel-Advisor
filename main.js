@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 function getRecommendations() {
     const destinationInput = document.getElementById("destination");
     const budgetInput = document.getElementById("budget");
@@ -12,7 +12,7 @@ function getRecommendations() {
     const requestOptions = {
         method: "GET",
         headers: {
-            // "x-rapidapi-key":,
+            "x-rapidapi-key": process.env,
             "x-rapidapi-host": "travel-advisor.p.rapidapi.com",
         },
     };
