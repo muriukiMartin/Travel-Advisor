@@ -24,13 +24,21 @@
             <input type="text" id="destination" placeholder="Enter your destination">
             <button type="button" id="get-hotels" onclick="getHotelRecommendations()">Hotels</button>
             <button type="button" id="get-restaurants" onclick="getRestaurantRecommendations()">Restaurants</button>
-            <!--  -->
-
-            
         </form>
 
         <div id="recommendations">
             <h2>Recommendations</h2>
+            <div id="filters">
+                <label for="ratingFilter">Filter by Rating:</label>
+                <select id="ratingFilter">
+                  <option value="0">All</option>
+                  <option value="1">1 star</option>
+                  <option value="2">2 stars</option>
+                  <option value="3">3 stars</option>
+                  <option value="4">4 stars</option>
+                  <option value="5">5 stars</option>
+                </select>
+              </div>
             <ul id="destinationList"></ul>
         </div>
     </main>
