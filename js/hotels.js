@@ -6,7 +6,7 @@ function getHotelRecommendations() {
   const destinationList = document.getElementById("destinationList");
 
   const destination = destinationInput.value;
-  const limit = 10;
+  const limit = 5;
   const requestOptions = {
     method: "GET",
     headers: {
@@ -65,11 +65,10 @@ function createHotelItem(name, rating, photo, reviews) {
 
   const nameElement = document.createElement("h3");
   nameElement.textContent = name;
+  item.appendChild(nameElement);
 
   const ratingElement = document.createElement("p");
   ratingElement.textContent = `Rating: ${rating}`;
-
-  item.appendChild(nameElement);
   item.appendChild(ratingElement);
 
   if (photo) {
@@ -89,8 +88,17 @@ function createHotelItem(name, rating, photo, reviews) {
       reviewsElement.appendChild(reviewItem);
     });
 
-    return item;
+    item.appendChild(reviewsElement);
   }
+
+  const bookmarkButton = document.createElement("button");
+  bookmarkButton.textContent = "Bookmark";
+  bookmarkButton.addEventListener("click", () => {
+    bookmarkHotel({ name, rating, photo, reviews });
+  });
+  item.appendChild(bookmarkButton);
+
+  return item;
 }
 
 function createNoDataItem(message) {
@@ -103,4 +111,26 @@ function createNoDataItem(message) {
   noItem.appendChild(messageElement);
 
   return noItem;
+}
+
+function bookmarkHotel(hotel) {
+  // Get the existing bookmarks from local storage or initialize an empty array
+  const bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
+
+  // Check if the hotel is already bookmarked
+  const isBookmarked = bookmarks.some(item => item.locationId === hotel.locationId);
+
+  if (isBookmarked) {
+    // Hotel is already bookmarked, remove it from bookmarks
+    const updatedBookmarks = bookmarks.filter(item => {
+      return item.locationId !== hotel.locationId;
+    });
+    localStorage.setItem("bookmarks", JSON.stringify(updatedBookmarks));
+    alert("Hotel removed from bookmarks!");
+  } else {
+    // Hotel is not bookmarked, add it to bookmarks
+    bookmarks.push(hotel);
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+    alert("Hotel bookmarked!");
+  }
 }
