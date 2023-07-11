@@ -11,7 +11,7 @@ function getRecommendations() {
     const requestOptions = {
         method: "GET",
         headers: {
-          "x-rapidapi-key": "",
+          "x-rapidapi-key": "10f506a163msh3c699d2ef20ea81p139bedjsnd43216186869",
           "x-rapidapi-host": "travel-advisor.p.rapidapi.com",
         },
       };
@@ -26,7 +26,7 @@ function getRecommendations() {
 
       if (hotels.length > 0) {
         hotels.forEach(hotel => {
-          const hotelItem = createHotelItem(hotel.result_object.name, hotel.result_object.rating);
+          const hotelItem = createHotelItem(hotel.result_object.name, hotel.result_object.rating, hotel.result_object.photo);
           destinationList.appendChild(hotelItem);
         });
       } else {
@@ -39,7 +39,7 @@ function getRecommendations() {
     });
 }
     
-    function createHotelItem(name, rating) {
+    function createHotelItem(name, rating, photo) {
       const item = document.createElement("div");
       item.className = "hotel-item";
     
@@ -51,6 +51,13 @@ function getRecommendations() {
     
       item.appendChild(nameElement);
       item.appendChild(ratingElement);
+
+      if (photo) {
+        const imageElement = document.createElement("img");
+        imageElement.src = photo.images.original.url;
+        imageElement.alt = name;
+        item.appendChild(imageElement);
+      }
     
       return item;
     }
