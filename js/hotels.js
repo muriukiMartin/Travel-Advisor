@@ -10,7 +10,7 @@ function getHotelRecommendations() {
   const requestOptions = {
     method: "GET",
     headers: {
-      "x-rapidapi-key": "10f506a163msh3c699d2ef20ea81p139bedjsnd43216186869",
+      "x-rapidapi-key": "",
       "x-rapidapi-host": "travel-advisor.p.rapidapi.com",
     },
   };
